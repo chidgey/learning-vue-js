@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <title>Basic App</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .one {
+            color:green;
+        }
+        .two {
+            text-decoration: line-through;
+        }
+
+        .canvas {
+            width: 200px;
+            height: 200px;
+            margin-top:20px;
+            background-color:#ddd;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Basic App</h1>
+    <div id="app">
+        <h2>{{ title }}</h2>
+        <p>{{ greet('evening') }}</p>
+        <a :href="url">YouTube</a>
+        <div :class="classes">Classes from instance</div>
+        <input type="text" :value="name" />
+
+        <h2>Event Management</h2>
+        <p>I earn £{{ wage }} per hour</p>
+        <button v-on:click="changeWage(1)">Increase wage by £1</button>
+        <button v-on:click="changeWage(-1)">Decrease wage by £1</button>
+        <button v-on:dblclick="changeWage(5)">Increase wage by £5</button>
+        
+        <!-- This is interesting, this using the alt system event modifier for alt+dblclick. -->
+        <button v-on:dblclick.alt="changeWage(-5)">Decrease wage by £5</button>
+        <button @click="logEvent">Log Event</button>
+        <div class="canvas" @mousemove="logCoords">{{ coords.x }} , {{ coords.y }}</div>
+
+        <h2>Conditional Rendering</h2>
+        <p>Only show age if name is false, and age is true. This is standard fall through if, then, else behaviour</p>
+        <button @click="toggleShowName">Toggle Name: {{ showName }}</button>
+        <button @click="toggleShowAge">Toggle Age: {{ showAge }}</button>
+        
+        <p v-if="showName">Mario</p>
+        <p v-else-if="showAge">35</p>
+
+        <h2>Two way data binding</h2>
+        <p>See how changing the name, leads to the model being updated. Likewise, changing the model updates the view.</p>
+        <input v-model="name" />
+        <p>{{ greet('evening') }}</p>
+
+        <h2>Using the for directive and an inline style binding</h2>
+        <ul>
+            <li v-for="(colour, index) in colours" :style="{color: colour}">{{ index }} - This is {{ colour }}</li>
+        </ul>
+        
+
+        <!-- This event modifier prevents the click event bubbling through and redirecting to google. -->
+        <a href="https://www.google.com" @click.prevent="logEvent">Google</a>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
